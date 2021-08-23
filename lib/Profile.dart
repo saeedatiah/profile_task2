@@ -31,7 +31,62 @@ class _ProfileState extends State<Profile> {
 
                   children: [
                     Image(image: AssetImage('assest/images/imgprofile.png')),
+                    Container(
+
+                      child: Center(
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 50),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Container(
+                                  width: 200.0,
+                                  height: 200.0,
+                                  decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: (path != null) ? Image.file(path ?? File('')) : Image.asset('assest/images/main.png'),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 200,
+                              height: 250,
+                              alignment: Alignment.bottomRight,
+                              child: InkWell(
+
+                                child: Icon(Icons.camera_alt,color: Colors.indigoAccent, size: 50,),
+                                onTap: ()async{
+                                  await showDialog(context: context, builder: (context)=>AlertDialog(
+                                    content: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        IconButton(onPressed: ()async{
+                                          await openCamera();
+                                          Navigator.pop(context);
+                                        },
+                                            icon: Icon(Icons.camera_alt)),
+                                        IconButton(onPressed: ()async{
+                                          await openGallery();
+                                          Navigator.pop(context);
+                                        }, icon: Icon(Icons.image)),
+                                      ],
+                                    ),
+                                  ));
+                                },
+                              ),
+                            ),
+
+                          ],
+
+                        ),
+                      ),
+                    ),
+
+/*
                     Center(
+
                       child: InkWell(
                         onTap: ()async{
                           await showDialog(context: context, builder: (context)=>AlertDialog(
@@ -67,6 +122,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
+*/
 
                   ],
                 ),
