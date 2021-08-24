@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -12,10 +11,12 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   DateTime? _selectedDate;
   DateTime _initialDate=DateTime.now();
-  TextEditingController date = TextEditingController(text: '16/10/1996');
+  DateTime date= DateTime.now();
+//  TextEditingController date = TextEditingController(text: '16/10/1996');
   TextEditingController name = TextEditingController(text: 'saeed abdullah');
   TextEditingController email = TextEditingController(text: 'saeedabdullah17@gmail.com');
   TextEditingController phone = TextEditingController(text: '0096771666');
+
   File? path;
   @override
   Widget build(BuildContext context) {
@@ -287,7 +288,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ),
                                 Text(
-                                  date.text,
+                                  ('${date.year} - ${date.month} - ${date.day}'),
                                   style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.black12
@@ -299,16 +300,10 @@ class _ProfileState extends State<Profile> {
                           IconButton(
                             onPressed: () async{
                               var _dateController;
-                              await showDialog(context: context, builder: (_)=>DatePickerDialog(
-                                firstDate: DateTime(1940),
-                                lastDate: DateTime(2025),
-                                initialDate: _initialDate,
-                                errorFormatText: 'Enter valid date',
-                                helpText: 'Select date',
-                                errorInvalidText: 'Enter date in valid range',
-                              ),);
+                              DateTime? pickedDate = await showDatePicker(context: context, initialDate: date, firstDate: DateTime(1940), lastDate: DateTime(2025));
+                              if(pickedDate != null)
+                                date = pickedDate;
                               setState(() {
-
                               });
                             },
                             icon: Icon(Icons.edit),
